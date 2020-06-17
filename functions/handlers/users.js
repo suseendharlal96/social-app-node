@@ -234,6 +234,7 @@ exports.getAnyUserDetails = (req, res) => {
           username: doc.data().username,
           age: doc.data().age,
           likeCount: doc.data().likeCount,
+          imageUrl: doc.data().imageUrl,
           commentCount: doc.data().commentCount,
           handler: doc.data().handler,
           createdAt: doc.data().createdAt,
