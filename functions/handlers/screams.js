@@ -8,7 +8,7 @@ exports.getScreams = (req, res) => {
     .then((data) => {
       const screams = [];
       data.forEach((doc) => {
-        screams.push(doc.data());
+        screams.push({ screamId: doc.id, ...doc.data() });
       });
       return res.json(screams);
     })
