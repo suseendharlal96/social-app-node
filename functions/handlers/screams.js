@@ -54,6 +54,9 @@ exports.createScream = (req, res) => {
     commentCount: 0,
     imageUrl: req.user.imageUrl,
   };
+  if (newScream.scream.length === 0) {
+    return res.status(400).json({ scream: "Must not be empty" });
+  }
   db.collection("screams")
     .add(newScream)
     .then((doc) => {
@@ -69,7 +72,7 @@ exports.createScream = (req, res) => {
 // comment on a scream
 exports.commentOnScream = (req, res) => {
   if (req.body.comment.trim() === "") {
-    return res.status(400).json({ error: "Must not be empty" });
+    return res.status(400).json({ screamComment: "Must not be empty" });
   }
   const newComment = {
     createdAt: new Date().toISOString(),

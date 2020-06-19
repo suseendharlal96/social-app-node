@@ -59,10 +59,10 @@ exports.signUp = (req, res) => {
       return res.status(201).json({ token: userToken });
     })
     .catch((err) => {
-      if (err.code === "auth/email-already-in-use") {
+      if (err.code.toString().search("auth") !== -1) {
         return res.status(400).json({ general: "Email already taken" });
       }
-      return res.status(500).json({ error: err.code });
+      return res.status(500).json({ general: "Something went wrong" });
     });
 };
 
@@ -89,7 +89,13 @@ exports.signIn = (req, res) => {
       return res.status(201).json(token);
     })
     .catch((err) => {
-      return res.status(500).json({ error: err.code });
+      if (err.code.toString().search("auth") !== -1) {
+        return res
+          .status(400)
+          .json({ general: "No User with the entered credentials." });
+      } else {
+        return res.status(500).json({ error: err.code });
+      }
     });
 };
 
